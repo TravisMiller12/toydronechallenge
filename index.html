@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=\, initial-scale=1.0" />
+    <title>Toy Drone</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="game-board">
+      <div id="drone" style="display: none"></div>
+    </div>
+
+    <label for="drone-x"> Drones X position: </label>
+    <input type="number" id="drone-x" name="drone-x" />
+    <label for="drone-y"> Drones Y position:</label>
+    <input type="number" id="drone-y" name="drone-y" />
+    <button onClick="placeDrone()">Place Drone</button>
+    <script src="script.js"></script>
+  </body>
+</html>
