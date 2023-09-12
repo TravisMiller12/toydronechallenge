@@ -17,17 +17,15 @@ const drone = {
 
 // Defines the drone
 
-document.addEventListener("keydown", function (event) {
-  if (event.keyCode === 39) {
-    drone.position.x += 1;
-    updateDronePosition();
-  }
-});
-
 function updateDronePosition() {
   const droneElement = document.getElementById("drone");
-  droneElement.style.top = drone.position.y * 50 + "px"; // Takes the current unit position and multiplies it by 50 to determine the y position
-  droneElement.style.left = drone.position.x * 50 + "px"; // Takes the current unit position and multiplies it by 50 to determine the x position
+  const cellSize = 50; // Assuming each cell is 50px in size
+  const xOffset = (cellSize - droneElement.offsetWidth) / 2;
+  const yOffset = (cellSize - droneElement.offsetHeight) / 2;
+
+  droneElement.style.transform = `translate(${
+    drone.position.x * cellSize + xOffset
+  }px, ${drone.position.y * cellSize + yOffset}px)`;
 }
 
 // Keeps tracks of the drones positioning
@@ -43,7 +41,32 @@ function placeDrone() {
 
   const droneElement = document.getElementById("drone"); // Fetches drone ID from html
   droneElement.style.display = "block"; // Changes current style display of drone from none to block
+  droneElement.style.top = 10 + "px"; //aligns drone to cell vertically
+  droneElement.style.left = 10 + "px"; // aligns drone to cell horizontally
   updateDronePosition(); // Calls the updateDronePosition function
 }
 
 // Places the drone
+
+document.addEventListener("keydown", function (event) {
+  const speed = 1; // Adjust the speed of movement as needed
+
+  switch (event.key) {
+    case "ArrowUp":
+      drone.position.y = Math.max(drone.position.y - speed, 0);
+      break;
+    case "ArrowDown":
+      drone.position.y = Math.min(drone.position.y + speed, 9);
+      break;
+    case "ArrowLeft":
+      drone.position.x = Math.max(drone.position.x - speed, 0);
+      break;
+    case "ArrowRight":
+      drone.position.x = Math.min(drone.position.x + speed, 9);
+      break;
+    default:
+      return; // Do nothing for other keys
+  }
+
+  updateDronePosition();
+});
