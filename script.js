@@ -18,37 +18,38 @@ const drone = {
 // Defines the drone
 
 function updateDronePosition() {
-  const droneElement = document.getElementById("drone");
+  const droneElement = document.getElementById("drone"); // Fetches the HTML element ID "drone" and assigns it the variable "droneElement"
   const cellSize = 50; // Assuming each cell is 50px in size
   const xOffset = (cellSize - droneElement.offsetWidth) / 2;
   const yOffset = (cellSize - droneElement.offsetHeight) / 2;
 
-  droneElement.style.transform = `translate(${
-    drone.position.x * cellSize + xOffset
-  }px, ${drone.position.y * cellSize + yOffset}px)`;
+  droneElement.style.transform = `translate(${drone.position.x * cellSize + xOffset
+    }px, ${drone.position.y * cellSize + yOffset}px)`;
 }
 
 // Keeps tracks of the drones positioning
 
 function placeDrone() {
-  const droneX = document.getElementById("drone-x").value; // Fetches drone-x from the html file. Assigns variable droneX to the x input from the html
-  const droneY = document.getElementById("drone-y").value; // Fetches drone-y from the html file. Assigns variable droneY to the y input from the html
+  const droneX = document.getElementById("drone-x").value;
+  const droneY = document.getElementById("drone-y").value;
 
-  drone.position.x = droneX;
-  drone.position.y = droneY;
+  drone.position.x = droneX - 1;
+  drone.position.y = droneY - 1;
 
-  // These lines assign the values obtained from the input fields to the x and y properties of a drone object.
+  const droneElement = document.getElementById("drone");
+  droneElement.style.display = "block";
 
-  const droneElement = document.getElementById("drone"); // Fetches drone ID from html
-  droneElement.style.display = "block"; // Changes current style display of drone from none to block
-  droneElement.style.top = 10 + "px"; //aligns drone to cell vertically
-  droneElement.style.left = 10 + "px"; // aligns drone to cell horizontally
-  updateDronePosition(); // Calls the updateDronePosition function
+  setTimeout(() => {
+    updateDronePosition();
+  }, 0);
 }
+
+
 
 // Places the drone
 
 document.addEventListener("keydown", function (event) {
+  console.log("Key pressed:", event.key); // Add this line
   const speed = 1; // Adjust the speed of movement as needed
 
   switch (event.key) {
